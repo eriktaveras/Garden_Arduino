@@ -1,6 +1,3 @@
-//www.elegoo.com
-//2016.12.9
-
 #include <LiquidCrystal.h>
 int tempPin = 0;
 int redValue;
@@ -16,7 +13,6 @@ const int sensorPin = A1;
 LiquidCrystal lcd(7, 8, 9, 10, 11, 12);
 void setup()
 {
-    // put your setup code here, to run once:
  pinMode(2,OUTPUT);
   
   Serial.begin(9600);
@@ -45,11 +41,7 @@ void loop()
   tempK = 1 / (0.001129148 + (0.000234125 + (0.0000000876741 * tempK * tempK )) * tempK );       //  Temp Kelvin
   float tempC = tempK - 273.15;            // Convert Kelvin to Celcius
   float tempF = (tempC * 9.0)/ 5.0 + 32.0; // Convert Celcius to Fahrenheit
-  /*  replaced
-    float tempVolts = tempReading * 5.0 / 1024.0;
-    float tempC = (tempVolts - 0.5) * 10.0;
-    float tempF = tempC * 9.0 / 5.0 + 32.0;
-  */
+
   // Display Temperature in C
   lcd.setCursor(0, 0);
   //lcd.print("Temp         C  ");
@@ -65,21 +57,13 @@ void loop()
     lcd.print("Humedad  :  NO");
     digitalWrite(2,LOW);
    
-    // put your main code here, to run repeatedly:
    }
   else {
     lcd.print("Humedad  :  OK");
      
  digitalWrite(2,HIGH);
   }
-//if***
-  // 
 
-
-    //  
-  //lcd.print(humedad);
-  // Display Temperature in F
-  //lcd.print(tempF);
   delay(500);
 #define delayTime 10 // fading time between colors
 
@@ -87,10 +71,6 @@ redValue = 255; // choose a value between 1 and 255 to change the color.
 greenValue = 0;
 blueValue = 0;
 
-// this is unnecessary as we've either turned on RED in SETUP
-// or in the previous loop ... regardless, this turns RED off
-// analogWrite(RED, 0);
-// delay(1000);
 
 for(int i = 0; i < 255; i += 1) // fades out red bring green full when i=255
 {
@@ -112,9 +92,7 @@ for(int i = 0; i < 255; i += 1) // fades out green bring blue full when i=255
 {
 greenValue -= 1;
 blueValue += 1;
-// The following was reversed, counting in the wrong directions
-// analogWrite(GREEN, 255 - greenValue);
-// analogWrite(BLUE, 255 - blueValue);
+
 analogWrite(GREEN, greenValue);
 analogWrite(BLUE, blueValue);
 delay(delayTime);
@@ -126,12 +104,9 @@ blueValue = 255;
 
 for(int i = 0; i < 255; i += 1) // fades out blue bring red full when i=255
 {
-// The following code has been rearranged to match the other two similar sections
 blueValue -= 1;
 redValue += 1;
-// The following was reversed, counting in the wrong directions
-// analogWrite(BLUE, 255 - blueValue);
-// analogWrite(RED, 255 - redValue);
+
 analogWrite(BLUE, blueValue);
 analogWrite(RED, redValue);
 
